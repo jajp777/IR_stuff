@@ -17,3 +17,8 @@ and then you will have a pcap in the current directory. Basically it reads out t
 References:
 https://isc.sans.edu/diary/No+Wireshark%3F+No+TCPDump%3F+No+Problem!/19409
 
+
+
+###sniffer.ps1###
+
+This is a script I wrote to capture localhost traffic, i.e. like RawCap.exe but in powershell. Tested in powershell v2.
