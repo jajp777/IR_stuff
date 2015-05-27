@@ -19,6 +19,6 @@ https://isc.sans.edu/diary/No+Wireshark%3F+No+TCPDump%3F+No+Problem!/19409
 
 
 
-###sniffer.ps1###
+###Invoke-RawCap.ps1###
 
-This is a script I wrote to capture localhost traffic, i.e. like RawCap.exe but in powershell. Tested in powershell v2.
+This is a script I wrote to capture localhost traffic, i.e. like RawCap.exe but in powershell. Tested in powershell v2 on Win7.
