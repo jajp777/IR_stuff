@@ -16,8 +16,6 @@ Optional Dependencies: None
 Script creates a socket listening on the specified address and then sets the SIO_RCVALL control code[1] so that the socket captures all traffic.
 It then manually builds the PCAP and writes it to the specified file. This code was heavily influenced by Get-Packet by rfoust[2].
 
-.RELATED LINKS
-
 [1] https://msdn.microsoft.com/en-us/library/windows/desktop/ee309610%28v=vs.85%29.aspx
 [2] http://poshcode.org/764
 
