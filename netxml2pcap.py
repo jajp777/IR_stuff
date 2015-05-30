@@ -2,8 +2,10 @@ import xml.etree.ElementTree as et
 import dateutil.parser
 import traceback
 import binascii
+import argparse
 import time
 import sys
+import os
 
 from ctypes import *
 
@@ -60,6 +62,8 @@ def get_packet_data(netxml):
 
 
     tree = et.parse(netxml)
+    print('[*] Parsing trace file %s' % os.path.abspath(netxml))
+
     root = tree.getroot()
 
     # var here for packets that span Events
@@ -131,24 +135,41 @@ def get_packet_data(netxml):
 
 
 if __name__ == "__main__":
+
+    print('\n')    
+    parser = argparse.ArgumentParser(description='Script for converting netsh trace .etl files to pcap')
     
-    trace_file = sys.argv[1]
-    out_file = sys.argv[2]
+    parser.add_argument('--input', action='store', required=True, help='The netsh trace .etl file to process')
+    parser.add_argument('--output', action='store', required=True, help='Name of the pcap file to be created')
+
+    args = parser.parse_args()
+
+    trace_file = args.input
+    out_file = args.output
 
     try:
         #write our global header
         with open(out_file, 'wb+') as f_pcap:
             f_pcap.write(pcap_hdr_s(0xa1b2c3d4, 2, 4, 0, 0, 65535, 1))
-
+            #print('[*] Creating pcap file %s' % out_file)
     except:
         print(traceback.format_exc())
 
+    pkt_n = 0
+
     # use our generator to pull pkt details
     for p_details in get_packet_data(trace_file):
+        sys.stdout.write('\r[*] Processing packet no %d' % pkt_n)
+        sys.stdout.flush()
         pkt = add_pcap_hdr(p_details['SystemTime'], p_details['Data'])
+        pkt_n += 1
         # now we write out our file
         with open(out_file, 'ab') as f_pcap:
             f_pcap.write(pkt)
-      
+
+    print('\n') 
+    print('[*] Done processing, pcap written to %s' % os.path.abspath(out_file))
+    print('\n')
+
 
 
