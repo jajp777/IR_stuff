@@ -1,0 +1,122 @@
+{
+    "mappings": {
+      "site": {
+        "properties": {
+          "browser": {
+            "properties": {
+              "src": {
+                "type": "string"
+              },
+              "urls": {
+                "type": "string"
+              }
+            }
+          },
+          "hostname": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "ip": {
+            "type": "ip"
+          },
+          "ssl": {
+            "properties": {
+              "created": {
+                "type": "date",
+                "format": "strict_date_optional_time||epoch_millis"
+              },
+              "expire": {
+                "type": "date",
+                "format": "strict_date_optional_time||epoch_millis"
+              },
+              "issuer": {
+                "type": "string"
+              },
+              "keysize": {
+                "type": "long"
+              },
+              "subject": {
+                "type": "string"
+              },
+              "fingerprint": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          },
+          "url": {
+            "type": "string",
+            "analyzer": "full_name"
+          },
+          "whois": {
+            "properties": {
+              "nets": {
+                "type": "nested",
+                "properties": {
+                  "address": {
+                    "type": "string"
+                  },
+                  "cidr": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                  },
+                  "city": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                  },
+                  "country": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                  },
+                  "created": {
+                    "type": "date",
+                    "format": "strict_date_optional_time||epoch_millis"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "emails": {
+                    "type": "string"
+                  },
+                  "handle": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "postal_code": {
+                    "type": "string"
+                  },
+                  "range": {
+                    "type": "string"
+                  },
+                  "state": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                  },
+                  "updated": {
+                    "type": "date",
+                    "format": "strict_date_optional_time||epoch_millis"
+                  }
+                }
+              },
+              "registrar": {
+                "type": "string",
+                "index": "not_analyzed"
+              }
+            }
+          }
+        }
+      }
+    },
+    "settings": {
+      "analysis": {
+        "analyzer": {
+          "full_name": {
+              "type": "custom",
+              "tokenizer": "uax_url_email"
+          }
+        }
+      }
+    }
+  }
